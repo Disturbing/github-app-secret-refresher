@@ -1,0 +1,5 @@
+
+githubAppSecret:
+  namespace: default # Target namespace for the secret
+  username: x-access-token # this is the default username for using a github app installation token
+  password: {} # This is the github app installation token
