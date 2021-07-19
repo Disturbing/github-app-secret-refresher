@@ -15,6 +15,7 @@ var (
 	GithubAppPrivateKeyFile string
 
 	KubeConfigPath      string
+	KubeSecretName      string
 	KubeSecretNamespace string
 )
 
@@ -25,10 +26,13 @@ func Load() {
 		log.Panicf("Could not load godotenv utility with err: %v", err)
 	}
 
+	TokenProcessorType = types.TokenProcessorType(os.Getenv("TOKEN_PROCESSOR_TYPE"))
 	GithubAppId = getEnvAsInt("GITHUB_APP_ID")
 	GithubAppInstallationId = getEnvAsInt("GITHUB_APP_INSTALLATION_ID")
 	GithubAppPrivateKeyFile = os.Getenv("GITHUB_APP_PRIVATE_KEY_PATH")
+
 	KubeConfigPath = os.Getenv("KUBE_CONFIG_PATH")
+	KubeSecretName = os.Getenv("KUBE_SECRET_NAME")
 	KubeSecretNamespace = os.Getenv("KUBE_SECRET_NAMESPACE")
 }
 

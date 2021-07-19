@@ -8,7 +8,7 @@ import (
 )
 
 type Controller interface {
-	HandleNewToken(tokenId string)
+	ProcessNewToken(token string) error
 }
 
 func New() (Controller, error) {
@@ -19,5 +19,4 @@ func New() (Controller, error) {
 	default:
 		return nil, errors.New(fmt.Sprintf("Unsupported token processor type %v", config.TokenProcessorType))
 	}
-
 }
