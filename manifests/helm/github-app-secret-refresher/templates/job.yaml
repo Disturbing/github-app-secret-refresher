@@ -13,6 +13,19 @@ spec:
           containers:
           - name: github-app-secret-refresher
             image: disturbing/github-app-secret-refresher:latest
+            env:
+            - name: TOKEN_PROCESSOR_TYPE
+              value: "KUBERNETES"
+            - name: GITHUB_APP_ID
+              value: {{ .Values.githubAppId }}
+            - name: GITHUB_APP_INSTALLATION_ID
+              value: {{ .Values.githubAppInstallationId }}
+            - name: KUBE_SECRET_NAME
+              value: github-app-private-key
+            - name: KUBE_SECRET_NAMESPACE
+              value: {{ .Release.Namespace }}
+            - name: GITHUB_APP_PRIVATE_KEY_PATH
+              value: "/etc/github-app/private-key/github-app-private-key.pem"
             volumeMounts:
             - name: github-app
               mountPath: "/etc/github-app"

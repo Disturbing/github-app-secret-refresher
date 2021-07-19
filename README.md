@@ -1,2 +1,3 @@
-# github-app-k8s-secret-refresher
-Github App API Tokens are so FRESH, it hurts.
+# GithHub App Secret Refresher
+
+Where you can get [GitHub App Installation Access Tokens](https://docs.github.com/en/rest/reference/apps#create-an-installation-access-token-for-an-app) that are so FRESH, it hurts...

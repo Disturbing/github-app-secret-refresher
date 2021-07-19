@@ -1,2 +1,4 @@
 
 githubAppPrivateKeyBase64: "gitub-app-private-key.pem"
+githubAppId: 1
+githubAppInstallationId: 99
