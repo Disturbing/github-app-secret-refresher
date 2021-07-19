@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: github-app-secret-refresher
+spec:
+  schedule: "*/1 * * * *"
+  jobTemplate:
+    spec:
+      backoffLimit: 5
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+          - name: github-app-secret-refresher
+            image: disturbing/github-app-secret-refresher:latest
+            volumeMounts:
+            - name: github-app
+              mountPath: "/etc/github-app"
+              readOnly: true
+          volumes:
+          - name: github-app
+            secret:
+              secretName: "github-app-private-key"
+              items:
+              - key: "github-app-private-key.pem"
+                path: "private-key"
