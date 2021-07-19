@@ -20,11 +20,7 @@ var (
 )
 
 func Load() {
-	err := godotenv.Load()
-
-	if err != nil {
-		log.Panicf("Could not load godotenv utility with err: %v", err)
-	}
+	godotenv.Load()
 
 	TokenProcessorType = types.TokenProcessorType(os.Getenv("TOKEN_PROCESSOR_TYPE"))
 	GithubAppId = getEnvAsInt("GITHUB_APP_ID")
