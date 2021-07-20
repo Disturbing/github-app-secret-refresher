@@ -74,7 +74,7 @@ username:  20 bytes
 
 # TODO List
 
-*[ ] Remove GitHub App client and use raw API to generate a **scoped** token
-*[ ] Create a **Target Namespace** so that the Job may run outside of the k8s namespace of which the secret or services live
-*[ ] Be able to specify multiple target formats (oauth, custom, k8s image pull secret, etc)
-*[ ] Introduce more processor types (WEBHOOK, AWS Secret Manager, etc)
+* [ ] Remove GitHub App client and use raw API to generate a **scoped** token
+* [ ] Create a **Target Namespace** so that the Job may run outside of the k8s namespace of which the secret or services live
+* [ ] Be able to specify multiple target formats (oauth, custom, k8s image pull secret, etc)
+* [ ] Introduce more processor types (WEBHOOK, AWS Secret Manager, etc)
