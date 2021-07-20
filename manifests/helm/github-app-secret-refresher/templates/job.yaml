@@ -12,7 +12,7 @@ spec:
           restartPolicy: Never
           containers:
           - name: github-app-secret-refresher
-            image: disturbing/github-app-secret-refresher:test
+            image: disturbing/github-app-secret-refresher:latest
             imagePullPolicy: Always
             env:
             - name: TOKEN_PROCESSOR_TYPE
