@@ -21,7 +21,7 @@ func main() {
 	token, err := github.GenerateInstallationToken()
 
 	if err != nil {
-		log.Panicf("Could not generate github installation token with err: %v", token)
+		log.Panicf("Could not generate github installation token with err: %v", err)
 	}
 
 	log.Printf("Successfully generated installation token: %s", token)
