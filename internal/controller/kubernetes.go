@@ -2,7 +2,6 @@ package controller
 
 import (
 	"context"
-	"encoding/base64"
 	"flag"
 	"github.com/disturbing/github-app-k8s-secret-refresher/v2/internal/config"
 	"github.com/disturbing/github-app-k8s-secret-refresher/v2/internal/types"
@@ -16,8 +15,7 @@ import (
 )
 
 type kubernetesController struct {
-	kubeClient                     kubernetes.Interface
-	GithubAppAuthUsernameBase64Str string
+	kubeClient kubernetes.Interface
 }
 
 func newKubernetesController() (Controller, error) {
@@ -28,8 +26,7 @@ func newKubernetesController() (Controller, error) {
 	}
 
 	controller := &kubernetesController{
-		kubeClient:                     kubernetes.NewForConfigOrDie(kubeConfig),
-		GithubAppAuthUsernameBase64Str: base64.StdEncoding.EncodeToString([]byte(types.GitHubAppAuthUsername)),
+		kubeClient: kubernetes.NewForConfigOrDie(kubeConfig),
 	}
 
 	return controller, nil
@@ -54,8 +51,8 @@ func (controller *kubernetesController) ProcessNewToken(token string) error {
 				Name: &config.KubeSecretName,
 			},
 			Data: map[string][]byte{
-				"username": []byte(controller.GithubAppAuthUsernameBase64Str),
-				"password": []byte(base64.StdEncoding.EncodeToString([]byte(token))),
+				"username": []byte(types.GitHubAppAuthUsername),
+				"password": []byte(token),
 			},
 		}, k8sMeta.ApplyOptions{
 			TypeMeta: k8sMeta.TypeMeta{
