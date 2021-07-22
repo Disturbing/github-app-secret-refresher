@@ -36,8 +36,6 @@ func newKubernetesController() (Controller, error) {
 }
 
 func (controller *kubernetesController) ProcessNewToken(token string) error {
-	var passwordBase64Bytes []byte
-
 	var (
 		k8sSecretKindName    = "Secret"
 		k8sSecretKindVersion = "v1"
@@ -57,15 +55,14 @@ func (controller *kubernetesController) ProcessNewToken(token string) error {
 			},
 			Data: map[string][]byte{
 				"username": []byte(controller.GithubAppAuthUsernameBase64Str),
-				"password": passwordBase64Bytes,
+				"password": []byte(base64.StdEncoding.EncodeToString([]byte(token))),
 			},
 		}, k8sMeta.ApplyOptions{
 			TypeMeta: k8sMeta.TypeMeta{
 				APIVersion: "v1",
 			},
 			FieldManager: types.AppName,
-		},
-		)
+		})
 
 	if err == nil {
 		log.Printf("Successfully applied github credentials token to secret %s in namespace %s",

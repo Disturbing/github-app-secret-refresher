@@ -3,7 +3,7 @@ kind: CronJob
 metadata:
   name: github-app-secret-refresher
 spec:
-  schedule: "*/1 * * * *"
+  schedule: "{{ .Values.jobSchedule }}"
   jobTemplate:
     spec:
       backoffLimit: 5
@@ -13,6 +13,20 @@ spec:
           containers:
           - name: github-app-secret-refresher
             image: disturbing/github-app-secret-refresher:latest
+            imagePullPolicy: Always
+            env:
+            - name: TOKEN_PROCESSOR_TYPE
+              value: "KUBERNETES"
+            - name: GITHUB_APP_ID
+              value: "{{ .Values.githubAppId }}"
+            - name: GITHUB_APP_INSTALLATION_ID
+              value: "{{ .Values.githubAppInstallationId }}"
+            - name: KUBE_SECRET_NAME
+              value: "github-credentials"
+            - name: KUBE_SECRET_NAMESPACE
+              value: {{ .Release.Namespace }}
+            - name: GITHUB_APP_PRIVATE_KEY_PATH
+              value: "/etc/github-app/github-app-private-key.pem"
             volumeMounts:
             - name: github-app
               mountPath: "/etc/github-app"
@@ -23,4 +37,4 @@ spec:
               secretName: "github-app-private-key"
               items:
               - key: "github-app-private-key.pem"
-                path: "private-key"
+                path: "github-app-private-key.pem"

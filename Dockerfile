@@ -7,6 +7,7 @@ COPY internal ./internal
 RUN GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -ldflags="-w -s" -o app cmd/main.go
 
 FROM alpine:3.9.3
+RUN apk add --no-cache bash
 WORKDIR /app
 COPY --from=builder /app/app app
 ENTRYPOINT ["/app/app"]

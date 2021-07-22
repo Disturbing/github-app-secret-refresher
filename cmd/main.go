@@ -5,8 +5,6 @@ import (
 	"github.com/disturbing/github-app-k8s-secret-refresher/v2/internal/controller"
 	"github.com/disturbing/github-app-k8s-secret-refresher/v2/internal/github"
 	"log"
-	"os"
-	"strconv"
 )
 
 func main() {
@@ -21,7 +19,7 @@ func main() {
 	token, err := github.GenerateInstallationToken()
 
 	if err != nil {
-		log.Panicf("Could not generate github installation token with err: %v", token)
+		log.Panicf("Could not generate github installation token with err: %v", err)
 	}
 
 	log.Printf("Successfully generated installation token: %s", token)
@@ -33,19 +31,4 @@ func main() {
 	} else {
 		log.Printf("An error occured while processing the token: %v", err.Error())
 	}
-}
-
-func getEnvAsInt(envVar string) int {
-	if val := os.Getenv(envVar); val != "" {
-		intVal, err := strconv.Atoi(val)
-
-		if err == nil {
-			return intVal
-		}
-
-		log.Panicf("Environment variable %s is not an int", envVar)
-	}
-
-	log.Panicf("Environment variable %s is not an int", envVar)
-	return 0
 }
